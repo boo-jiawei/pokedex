@@ -19,14 +19,68 @@ const displayPokemonData = (pokemon) => {
   pokemonDetails.innerHTML = pokemonHTML;
 };
 
+const displayEvolutionChain = (evolutionStages) => {
+  let evolutionHTML = `<h3 class="evolution-title">Evolution Chain</h3><div class="evolution-container">`;
+
+  evolutionStages.forEach((stage) => {
+    evolutionHTML += `
+      <div class="evolution-stage">
+        <img src="${stage.image}" alt="${stage.name}">
+        <p>${stage.name.charAt(0).toUpperCase() + stage.name.slice(1)}</p>
+      </div>
+    `;
+  });
+
+  evolutionHTML += `</div>`
+
+  pokemonDetails.innerHTML += evolutionHTML;
+};
+
+const getAllEvolutionStages = async (evolutionChain) => {
+  let stages = [];
+  let currentEvolution = evolutionChain;
+
+  while (currentEvolution) {
+    const pokemonName = currentEvolution.species.name;
+
+    const response = await fetch(apiURL + pokemonName);
+    const evolutionData = await response.json();
+
+    stages.push({
+      name: pokemonName,
+      image: evolutionData.sprites.front_default,
+    });
+
+    if (currentEvolution.evolves_to.length > 0) {
+      currentEvolution = currentEvolution.evolves_to[0];
+    } else {
+      currentEvolution = null;
+    }
+  }
+
+  return stages; // Return array of all evolution stages with name and image
+};
+
 const getPokemonData = async (name) => {
   try {
     const response = await fetch(apiURL + name.toLowerCase());
     if (!response.ok) {
-      throw new Error("Pokemon Not Found");
+      throw new Error("Pokemon not found");
     }
     const pokemonData = await response.json();
     displayPokemonData(pokemonData);
+
+    const speciesUrl = pokemonData.species.url;
+    const speciesResponse = await fetch(speciesUrl);
+    const speciesData = await speciesResponse.json();
+
+    const evolutionChainUrl = speciesData.evolution_chain.url;
+    const evolutionResponse = await fetch(evolutionChainUrl);
+    const evolutionData = await evolutionResponse.json();
+
+    const evolutionStages = await getAllEvolutionStages(evolutionData.chain);
+
+    displayEvolutionChain(evolutionStages);
   } catch (error) {
     console.log(error);
   }

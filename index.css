@@ -1,19 +1,19 @@
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}
-
-body{
+  }
+  
+  body {
     font-family: Arial, Helvetica, sans-serif;
     background-color: #f5f5f5;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-}
-
-.pokedex-container{
+  }
+  
+  .pokedex-container {
     background-color: #d32f2f;
     width: 400px;
     padding: 20px;
@@ -21,28 +21,28 @@ body{
     box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
     text-align: center;
     color: white;
-}
-
-.title{
+  }
+  
+  .title {
     font-size: 2em;
     margin-bottom: 20px;
-}
-
-.search-bar{
+  }
+  
+  .search-bar {
     margin-bottom: 20px;
     display: flex;
     flex-direction: row;
-}
-
-#pokemonName{
+  }
+  
+  #pokemonName {
     width: 70%;
     padding: 10px;
     border: none;
     border-radius: 10px;
     outline: none;
-}
-
-#search-button{
+  }
+  
+  #search-button {
     padding: 10px;
     border: none;
     background-color: teal;
@@ -51,44 +51,67 @@ body{
     border-radius: 10px;
     cursor: pointer;
     margin-left: 10px;
-}
-#search-button:hover{
+  }
+  
+  #search-button:hover {
     background-color: darkgreen;
     color: white;
-}
-
-#random-button{
+  }
+  
+  #random-button {
     padding: 10px;
     border: none;
-    background-color: teal;
+    background-color: orange;
     color: white;
     font-weight: bold;
     border-radius: 10px;
     cursor: pointer;
     margin-left: 10px;
-}
-#random-button:hover{
-    background-color: darkgreen;
+  }
+  
+  #random-button:hover {
+    background-color: yellow;
     color: white;
-}
-.pokemon-details{
+  }
+  
+  .pokemon-details {
     background-color: #ffffff;
     border-radius: 10px;
     padding: 20px;
     color: black;
-}
-
-.pokemon-details img{
-    width: 150px;
-    height: 150px;
-}
-
-.pokemon-details h2{
+  }
+  
+  .pokemon-details img {
+    width: 200px;
+    height: 200px;
+  }
+  
+  .pokemon-details h2 {
     font-size: 1.5em;
     margin-bottom: 10px;
-}
-
-.pokemon-details p{
+  }
+  
+  .pokemon-details p {
     margin: 5px 0;
-}
-
+  }
+  
+  .evolution-title {
+    margin-top: 30px;
+  }
+  .evolution-container {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .evolution-stage {
+    text-align: center;
+  }
+  
+  .evolution-stage img {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .evolution-stage p {
+    font-size: 1.1em;
+  }
