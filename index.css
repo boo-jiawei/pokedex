@@ -30,6 +30,8 @@ body{
 
 .search-bar{
     margin-bottom: 20px;
+    display: flex;
+    flex-direction: row;
 }
 
 #pokemonName{
@@ -55,6 +57,20 @@ body{
     color: white;
 }
 
+#random-button{
+    padding: 10px;
+    border: none;
+    background-color: teal;
+    color: white;
+    font-weight: bold;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+#random-button:hover{
+    background-color: darkgreen;
+    color: white;
+}
 .pokemon-details{
     background-color: #ffffff;
     border-radius: 10px;
@@ -75,3 +91,4 @@ body{
 .pokemon-details p{
     margin: 5px 0;
 }
+

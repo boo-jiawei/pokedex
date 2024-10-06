@@ -1,11 +1,12 @@
 const searchButton = document.getElementById("search-button");
+const randomButton = document.getElementById("random-button");
 const pokemonName = document.getElementById("pokemonName");
 const pokemonDetails = document.getElementById("pokemonDetails");
 
 const apiURL = "https://pokeapi.co/api/v2/pokemon/";
 
 const displayPokemonData = (pokemon) => {
-const pokemonHTML = `
+  const pokemonHTML = `
     <img src="${pokemon.sprites.front_default}" alt="${pokemon.name}">
     <h2>${pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}</h2>
     <p><strong>Height:</strong> ${pokemon.height / 10} m</p>
@@ -31,6 +32,19 @@ const getPokemonData = async (name) => {
   }
 };
 
+const getRandomPokemonData = () => {
+  const randomNum = Math.floor(Math.random() * 1025) + 1;
+  getPokemonData(randomNum === 1026 ? "1025" : `${randomNum}`);
+};
+
 searchButton.addEventListener("click", () => {
   getPokemonData(pokemonName.value);
+});
+
+randomButton.addEventListener("click", () => {
+  getRandomPokemonData();
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  getPokemonData("pikachu");
 });
