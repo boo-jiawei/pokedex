@@ -6,8 +6,14 @@ const pokemonDetails = document.getElementById("pokemonDetails");
 const apiURL = "https://pokeapi.co/api/v2/pokemon/";
 
 const displayPokemonData = (pokemon) => {
+  pokemonDetails.innerHTML = "";
+  const regularImg = pokemon.sprites.front_default;
+  const shinyImg = pokemon.sprites.front_shiny;
+  let isShiny = false;
+
   const pokemonHTML = `
-    <img src="${pokemon.sprites.front_default}" alt="${pokemon.name}">
+    <img id="pokemon-Image" src="${regularImg}" alt="${pokemon.name}">
+    <button id="shiny-toggle" class="shiny-button">Shiny</button>
     <h2>${pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}</h2>
     <p><strong>Height:</strong> ${pokemon.height / 10} m</p>
     <p><strong>Weight:</strong> ${pokemon.weight / 10} kg</p>
@@ -17,24 +23,36 @@ const displayPokemonData = (pokemon) => {
     `;
 
   pokemonDetails.innerHTML = pokemonHTML;
-};
 
-const displayEvolutionChain = (evolutionStages) => {
-  let evolutionHTML = `<h3 class="evolution-title">Evolution Chain</h3><div class="evolution-container">`;
+  const shinyToggle = document.getElementById("shiny-toggle");
+  const pokemonImage = document.getElementById("pokemon-Image");
 
-  evolutionStages.forEach((stage) => {
-    evolutionHTML += `
-      <div class="evolution-stage">
-        <img src="${stage.image}" alt="${stage.name}">
-        <p>${stage.name.charAt(0).toUpperCase() + stage.name.slice(1)}</p>
-      </div>
-    `;
+  shinyToggle.addEventListener("click", () => {
+    if (isShiny === true) {
+      pokemonImage.src = regularImg;
+    } else {
+      pokemonImage.src = shinyImg;
+    }
+    isShiny = !isShiny;
   });
-
-  evolutionHTML += `</div>`
-
-  pokemonDetails.innerHTML += evolutionHTML;
 };
+
+// const displayEvolutionChain = (evolutionStages) => {
+//   let evolutionHTML = `<h3 class="evolution-title">Evolution Chain</h3><div class="evolution-container">`;
+
+//   evolutionStages.forEach((stage) => {
+//     evolutionHTML += `
+//       <div class="evolution-stage">
+//         <img src="${stage.image}" alt="${stage.name}">
+//         <p>${stage.name.charAt(0).toUpperCase() + stage.name.slice(1)}</p>
+//       </div>
+//     `;
+//   });
+
+//   evolutionHTML += `</div>`;
+
+//   pokemonDetails.innerHTML += evolutionHTML;
+// };
 
 const getAllEvolutionStages = async (evolutionChain) => {
   let stages = [];
@@ -80,7 +98,7 @@ const getPokemonData = async (name) => {
 
     const evolutionStages = await getAllEvolutionStages(evolutionData.chain);
 
-    displayEvolutionChain(evolutionStages);
+    // displayEvolutionChain(evolutionStages);
   } catch (error) {
     console.log(error);
   }
@@ -92,7 +110,12 @@ const getRandomPokemonData = () => {
 };
 
 searchButton.addEventListener("click", () => {
-  getPokemonData(pokemonName.value);
+  if (pokemonName.value.trim()) {
+    getPokemonData(pokemonName.value)
+  }else{
+    alert("Please enter a Pokemon Name");
+  }
+
 });
 
 randomButton.addEventListener("click", () => {
